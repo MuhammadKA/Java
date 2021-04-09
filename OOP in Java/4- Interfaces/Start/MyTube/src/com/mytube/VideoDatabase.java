@@ -1,6 +1,7 @@
 package com.mytube;
 
-public class VideoDatabase {
+public class VideoDatabase implements IVideoDatabase{
+    @Override
     public void store(Video video) {
         System.out.println("Storing video metadata in a SQL database...");
         System.out.println("Title: " + video.getTitle());
