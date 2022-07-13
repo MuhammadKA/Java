@@ -3,6 +3,12 @@ package sockets;
 import java.io.*;
 import java.net.*;
 
+/*
+ * This server code can’t accept a request from a client until it has finished with the current client 
+ * and started the next iteration of the infinite loop 
+ * (where it sits at the accept() call until a request comes in, at which time it
+ * makes a Socket with the new client and starts the process over again).
+ * */
 public class DailyAdviceServer {
 	String[] adviceList = { "Take smaller bites", "Go for the tight jeans. No they do NOT make you look fat.",
 			"One word:inappropriate", "Just for today, be honest.	Tell your boss what you *really* think",
@@ -17,7 +23,7 @@ public class DailyAdviceServer {
 			// The server goes into a permanent loop, waiting for (and servicing) client
 			// request
 			while (true) {
-				
+
 				// the accept method blocks (just sits there) until a request comes in, and then
 				// the method returns a Socket (on some anonymous port) for communicating
 				// with the client
