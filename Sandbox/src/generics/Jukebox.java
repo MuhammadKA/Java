@@ -1,4 +1,4 @@
-package sockets;
+package generics;
 
 import java.util.*;
 import java.io.*;
