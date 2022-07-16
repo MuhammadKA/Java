@@ -29,12 +29,29 @@ public class Jukebox {
 		System.out.println(songList);
 		Collections.sort(songList);
 		System.out.println(songList);
+		
+		// Here we create a new HashSet parameterized to hold Songs.
+		// HashSet<Song> songSet = new HashSet<Song>();
+		
+		/*
+		 * Instantiate a TreeSet instead of HashSet. Calling the no-arg TreeSet
+		 * constructor means the set will use the Song object’s compareTo() method for
+		 * the sort. (We could have passed in a Comparator.)
+		 */
+		TreeSet<Song> songSet = new TreeSet<Song>();
+		
+		// HashSet/TreeSet has a simple addAll() method that can take another collection
+		// and use it to populate the HashSet. It’s the same as if we added each song
+		// one at a time (except much simpler).
+		songSet.addAll(songList);
+		System.out.println(songSet);
+
 		// Make an instance of the Comparator inner class.
-		ArtistCompare artistCompare = new ArtistCompare();
+		// ArtistCompare artistCompare = new ArtistCompare();
 		// Invoke sort(), passing it the list and a reference to the new custom
 		// Comparator object.
-		Collections.sort(songList, artistCompare);
-		System.out.println(songList);
+		// Collections.sort(songList, artistCompare);
+		// System.out.println(songList);
 	}
 
 	void getSongs() {
@@ -66,6 +83,25 @@ public class Jukebox {
 		String artist;
 		String rating;
 		String bpm;
+
+		public boolean equals(Object aSong) {
+			Song s = (Song) aSong;
+			/*
+			 * The GREAT news is that title is a String, and Strings have an overridden
+			 * equals() method. So all we have to do is ask one title if it’s equal to the
+			 * other song’s title.
+			 */
+			return getTitle().equals(s.getTitle());
+		}
+
+		public int hashCode() {
+			/*
+			 * the String class has an overridden hashCode() method, so you can just return
+			 * the result of calling hashCode() on the title. Notice how hashCode() and
+			 * equals() are using the SAME instance variable.
+			 */
+			return title.hashCode();
+		}
 
 		/*
 		 * Note: we’ve made sort-by-title the default sort, by keeping the compareTo()
